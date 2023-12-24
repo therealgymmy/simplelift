@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, StyleSheet, ScrollView } from 'react-native';
+import { Exercises } from '../state/Workout'
 
 const WorkoutPage = () => {
   const [workouts, setWorkouts] = useState({
@@ -18,8 +19,8 @@ const WorkoutPage = () => {
     }));
   };
 
-  const renderWorkoutInput = (name) => (
-    <View style={styles.workoutContainer}>
+  const renderWorkoutInput = (id, name) => (
+    <View id={id} style={styles.workoutContainer}>
       <Text style={styles.workoutName}>{name}</Text>
       <TextInput
         style={styles.input}
@@ -40,9 +41,10 @@ const WorkoutPage = () => {
 
   return (
     <ScrollView style={styles.container}>
-      {['Military Press', 'Bench Press', 'Shoulder Raise', 'Pull Up', 'Squat', 'Kettlebell'].map((workout) =>
-        renderWorkoutInput(workout)
-      )}
+      {Exercises.map((workout) => {
+        console.log('Id: ', workout.id, ", Name: ", workout.name);
+        return renderWorkoutInput(workout.id, workout.name);
+      })}
     </ScrollView>
   );
 };
